@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>469609563421-1do3bq42ffuhgj1jev3jm76qeib0fhvk.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.469609563421-1do3bq42ffuhgj1jev3jm76qeib0fhvk</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAVzwMr-qjFGLc-suoZrEDv2wn6bFIlU_A</string>
+	<key>GCM_SENDER_ID</key>
+	<string>469609563421</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.phsartech.gdi</string>
+	<key>PROJECT_ID</key>
+	<string>immigration-45eeb</string>
+	<key>STORAGE_BUCKET</key>
+	<string>immigration-45eeb.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:469609563421:ios:6a24e36a61c24a143f8df4</string>
+	<key>DATABASE_URL</key>
+	<string>https://immigration-45eeb.firebaseio.com</string>
+</dict>
+</plist>

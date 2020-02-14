@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "469609563421",
+    "firebase_url": "https://immigration-45eeb.firebaseio.com",
+    "project_id": "immigration-45eeb",
+    "storage_bucket": "immigration-45eeb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:469609563421:android:f1bc38ac56cd1d853f8df4",
+        "android_client_info": {
+          "package_name": "com.gdi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "469609563421-64rg354tgpa5cl26va0e5u45gh90gdeq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7xb28u09DCzBCvrjzcaI9jibHbBxYohw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "469609563421-64rg354tgpa5cl26va0e5u45gh90gdeq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "469609563421-1do3bq42ffuhgj1jev3jm76qeib0fhvk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.phsartech.gdi"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
