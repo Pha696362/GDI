@@ -3,7 +3,7 @@ import { View, StyleSheet, Text } from "react-native";
 import TextTicker from 'react-native-text-ticker'
 import modules from "../../modules";
 import FastImage from "react-native-fast-image";
-import { Battambang } from "../../../function/customFont";
+import { Battambang, BattambangBold } from "../../../function/customFont";
 import { removeTag } from "../../services/mapping.service";
 // import { Battambang, BattambangBold } from "../../functions/customFont";
 // import { removeTag } from "../services/mapping.service";
@@ -26,7 +26,7 @@ export default ({ speechData }: Props) => {
           color: modules.WHITE
         }}
        
-        duration={40000}
+        duration={50000}
         loop
         bounce
         repeatSpacer={50}
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     marginLeft: -150 / 2 + 50,
     marginBottom: 12,
     color: modules.WHITE,
-    fontSize: modules.FONT_H6,
+    fontSize: modules.FONT_H4,
     ...Battambang
   },
   ImgTxt: {

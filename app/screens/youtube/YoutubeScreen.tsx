@@ -22,6 +22,7 @@ interface Props {
   onPlayVideo: any;
   videoTitle: string;
   openLink: any;
+  onPress?: (item: any) => void
 }
 
 export default ({
@@ -30,17 +31,18 @@ export default ({
   onPlayVideo,
   videoTitle,
   onGoBack,
-  openLink
+  openLink,
+  onPress
 }: Props) => {
   return (
     <View style={[_styles.flx1, { backgroundColor: modules.WHITE }]}>
-      <HeaderContainer onGoBack={onGoBack} HeaderTitle="Youtube" />
+      <HeaderContainer onBack={onGoBack}  HeaderTitle="Youtube" />
       <YouTube
         videoId={youtubeId}
         play={true}
         controls={2}
         apiKey={"AIzaSyBXZ2Lis8S_OeC18JsIFuo4WoIejkCYW9M"}
-        fullscreen={false}
+        fullscreen={true}
         loop
         style={{
           alignSelf: "stretch",

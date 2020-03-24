@@ -3,7 +3,7 @@ const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window'
 
 export default {
 	GRID_SPACING: 8,
-	
+	MARGIN:25,
 	BODY_HORIZONTAL: 15,
 	BODY_HORIZONTAL_24: 24,
 	BODY_HORIZONTAL_ACTION: 30,

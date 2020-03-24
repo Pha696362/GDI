@@ -1,4 +1,5 @@
-import * as React from "react";
+
+import React, { useState } from "react";
 import {
   View,
   StyleSheet,
@@ -7,22 +8,15 @@ import {
   ScrollView,
   FlatList,
   ActivityIndicator,
-  Platform,
-  TouchableOpacity,
-  
+  Platform
 } from "react-native";
-import _styles from "../../_styles";
 import HeaderMain from "../components/HeaderMain";
 import modules from "../../modules";
+import CardVideoScroll from "../components/CardVideoScroll";
 import TextSlider from "../components/TextSlider";
 import CardNews from "../components/CardNews";
-import { BattambangBold, Battambang } from "../../../function/customFont";
-import VideoCardHome from "../components/VideoCardHome";
-import { removeTag } from "../../services/mapping.service";
-import CardVideoScroll from "../components/CardVideoScroll";
-import Modal from "react-native-modal";
-import Icon from "react-native-vector-icons/Feather";
-import { useState } from "react";
+import YouTube from "react-native-youtube";
+import { Battambang } from "../../../function/customFont";
 
 interface Props {
   onClickDrawer: () => void;
@@ -34,16 +28,15 @@ interface Props {
   DuringMomentum: (value: boolean) => void;
   onEndReach: () => void;
   youtubeDoc: any;
+  youtubeId: string;
   onPlayVideo: any;
   videoTitle: string;
-  youtubeId: string;
   speechData: any;
-  onShare:any,
-  onModal: (item: any) => void
-
-
+  playVideo: boolean;
+  onShare: any;
 }
 export default ({
+  onShare,
   onClickDrawer,
   onClickNews,
   contentDoc,
@@ -53,42 +46,31 @@ export default ({
   onEndReach,
   loadingMore,
   youtubeDoc,
+  youtubeId,
   onPlayVideo,
+  videoTitle,
   speechData,
-  onShare,
-
-
+  playVideo
 }: Props) => {
-  const [visable, setVisable] = useState(false);
+  const [buffer, setBuffer] = useState(false);
+  const changeState = (state: any) => {
+    if (state == "buffering") {
+      setBuffer(true);
+    } else {
+      setBuffer(false);
+    }
+  };
   return (
     <View style={styles.Container}>
-            
       <SafeAreaView style={{backgroundColor:modules.COLOR_MAIN}}/>
       <HeaderMain openDrawer={onClickDrawer} />
-      <View>
-      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-      {/* {!youtubeDoc ?
-        null
-        : youtubeDoc.map((i: any, index: any) => {
-          return (
-            <CardVideoScroll
-              key={index}
-              uri={i.snippet.thumbnails.high.url}
-              title={i.snippet.title}
-              youtubeId={i.id.videoId}
-            />
-          );
-        })
-      } */}
-    </ScrollView>
-      </View>
-      
+
       <View style={{ flex: 1 }}>
-        <TextSlider speechData={speechData} />
         {loading ? (
           <ActivityIndicator size="large" />
         ) : (
           <FlatList
+            stickyHeaderIndices={[0]}
             showsVerticalScrollIndicator={false}
             data={contentDoc}
             refreshing={loading}
@@ -111,17 +93,63 @@ export default ({
                 <View style={{ paddingVertical: modules.BODY_HORIZONTAL }} />
               )
             }
+            ListHeaderComponent={
+              <View>
+                <ScrollView
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}
+                >
+                  <YouTube
+                    videoId={youtubeId}
+                    play={playVideo}
+                    controls={1}
+                    apiKey={"AIzaSyBXZ2Lis8S_OeC18JsIFuo4WoIejkCYW9M"}
+                    fullscreen={true}
+                    onChangeState={(e: any) => {
+                      changeState(e.state);
+                    }}
+                    loop
+                    style={{
+                      alignSelf: "stretch",
+                      display: "none",
+                      height: modules.VIEW_PORT_HEIGHT / 3.85
+                    }}
+                    // modestbranding={false}
+                  />
+                  {youtubeDoc ? (
+                    youtubeDoc.map((i: any, index: any) => {
+                      return (
+                        <View>
+                          <CardVideoScroll
+                            key={index}
+                            uri={i.snippet.thumbnails.high.url}
+                            title={i.snippet.title}
+                            loading={buffer}
+                            Play={() =>
+                              onPlayVideo(i.id.videoId, i.snippet.title)
+                            }
+                          />
+                        </View>
+                      );
+                    })
+                  ) : (
+                    <View />
+                  )}
+                </ScrollView>
+                <TextSlider speechData={speechData} />
+              </View>
+            }
             keyExtractor={(i, index) => index.toString()}
-            renderItem={({ item, index }) => (
+            renderItem={({ item }: any)=> (
               <CardNews
-                key={index}
+                loading={buffer}
+                key={item.key}
                 onClickNews={() => onClickNews(item)}
                 imgUrl={item.fileurl}
                 title={item.name}
-                date={item.create_date.seconds}
                 editname={item.editname}
-                onShare={()=>onShare(item)}
-                
+                date={item.create_date.seconds}
+                onShare={()=>onShare(item.key)}
               />
             )}
           />
@@ -181,49 +209,5 @@ const styles = StyleSheet.create({
   border: {
     borderBottomColor: modules.COLOR_MAIN,
     borderBottomWidth: 0.3
-  },
-  modalContainer: {
-    flex: 1,
-    margin: 0,
-    justifyContent: 'flex-end',
-
-
-  },
-  content: {
-    width: modules.VIEW_PORT_WIDTH,
-    height: modules.VIEW_PORT_HEIGHT / 4.5,
-
-
-  },
-  center: {
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  bodysave: {
-    height: 5,
-    width: 60,
-    borderRadius: 5,
-    justifyContent: 'space-between',
-    backgroundColor: '#fff',
-    margin: 6
-
-
-  },
-  savestyles: {
-    flex: 1,
-    backgroundColor: '#ffffff',
-  },
-  body: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderBottomWidth: 0.3,
-    borderBottomColor: 'rgba(0,0,0,0.1)'
-
-  },
-  sharetext: {
-    color: modules.SUB_TEXT,
-    fontSize: 16,
-
-
-  },
+  }
 });

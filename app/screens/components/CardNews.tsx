@@ -24,23 +24,26 @@ export interface Props {
   title: string;
   date: string;
   subtitle?: any;
-  editname?:any;
-  onShare?:any;
+  editname?: any;
+  onShare?: any;
+  loading?: boolean;
 
 }
 
-export interface State {}
+export interface State {
 
-export default ({ onClickNews, imgUrl, title, date,editname,onShare}: Props) => {
+}
+
+export default ({ onClickNews, imgUrl, title, date, editname, onShare }: Props) => {
   return (
     <TouchableOpacity onPress={onClickNews} style={styles.Box}>
-      
+
       <View style={styles.BlockText}>
         <Text numberOfLines={2} style={styles.titileText}>
           {title}
         </Text>
-        <View style={styles.BorderLine} />
-       
+        {/* <View style={styles.BorderLine} /> */}
+
       </View>
 
       {imgUrl ? (
@@ -50,30 +53,29 @@ export default ({ onClickNews, imgUrl, title, date,editname,onShare}: Props) => 
           source={{ uri: imgUrl }}
         />
       ) : (
-        <View>
-          <FastImage
-            resizeMode={FastImage.resizeMode.stretch}
-            style={styles.ImgCover}
-            source={require("../../images/logo1.png")}
-          />
-        </View>
-      )}
+          <View>
+            <FastImage
+              resizeMode={FastImage.resizeMode.stretch}
+              style={styles.ImgCover}
+              source={require("../../images/logo1.png")}
+            />
+          </View>
+        )}
 
       <View style={styles.BlockText}>
-        
+
         <Text style={styles.editname} numberOfLines={3}>{removeTag(`${editname}`)}</Text>
-        <View style={styles.BorderLine} />
+        {/* <View style={styles.BorderLine} /> */}
         <View style={styles.rows1}>
           <View style={styles.rows}>
             <Icon style={styles.ContentText} name="clock" />
-            <Text numberOfLines={2} style={styles.ContentText}>
-              ថ្ងៃទី
-              {date ? _formatShortDate(date) : ""}
-            </Text>
+              <Text numberOfLines={2} style={styles.ContentText}>
+                ថ្ងៃ{date ? _formatShortDate(date) : ""}
+              </Text>
           </View>
           <View style={styles.rows2}>
-            <TouchableOpacity  onPress={onShare}>
-              <Icon style={{ fontSize: modules.FONT_H5 }} name="share-2" />
+            <TouchableOpacity onPress={onShare} >
+              <Icon style={{ fontSize: modules.FONT_H2,paddingHorizontal:modules.BODY_HORIZONTAL_12 }} name="share-2" />
             </TouchableOpacity>
           </View>
         </View>
@@ -97,18 +99,21 @@ const styles = StyleSheet.create({
     marginTop: modules.SPACE5
   },
   titileText: {
-    fontSize: modules.FONT_H6,
+    fontSize: modules.FONT_H4,
     fontWeight: "500",
     lineHeight: 33,
     color: modules.TITLE_HEADER,
-    ...Battambang
+    ...BattambangBold,
+    marginHorizontal:modules.BODY_HORIZONTAL_12
+
   },
   editname: {
-    fontSize:14,
+    fontSize: modules.FONT_H6,
     fontWeight: "500",
     lineHeight: 33,
-    color: modules.SUB_TEXT,
-    ...Battambang
+    color: '#000',
+    ...Battambang,
+    marginHorizontal:modules.BODY_HORIZONTAL_12
   },
   ContentText: {
     lineHeight: 23,
@@ -118,16 +123,20 @@ const styles = StyleSheet.create({
     ...Battambang
   },
   BlockText: {
-    padding: modules.PADDING
+    paddingVertical: modules.PADDING
   },
   rows: {
     flexDirection: "row",
-    marginTop: modules.SPACE5
+    // marginTop: modules.SPACE5,
+    marginHorizontal:modules.BODY_HORIZONTAL_12
+
   },
   rows1: {
     flexDirection: "row",
     marginTop: modules.SPACE5,
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    alignItems:'center'
+    
   },
   rows2: {
     flexDirection: "row",

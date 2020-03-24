@@ -14,13 +14,16 @@ export default class ListContentbycategory {
   @observable contentLastVisible: any = null;
   @observable categoryKey:string =''
  @observable selectCategory :any =null;
+ @observable categoryTitle :string=''
 
 
   @action
-  fetchContent(categoryKey: string) {
+  fetchContent(categoryKey: string, categoryTitle:string) {
       this.loading = true;
       this.contentLastVisible = null;
+      this.categoryTitle = categoryTitle;
     this.categoryKey=categoryKey;
+
       if (categoryKey) {
         ContentRef(this.contentLastVisible, categoryKey)
               .get()
@@ -56,8 +59,8 @@ export default class ListContentbycategory {
                       this.contentLastVisible = null;
                   }
                   this.contentDoc = data;
-                  console.log('this.contentDoc',this.contentDoc)
-                  // console.log('this.dataContent without category', this.dataContent)
+
+
                   this.loading = false;
                   
                  
@@ -100,7 +103,7 @@ export default class ListContentbycategory {
 
   @action
   fetchMoreContent() {
-      // console.log('categoryKey :', categoryKey);
+
       if (!this.contentLastVisible || this.loadingMore) return;
       this.loadingMore = true;
     
@@ -130,9 +133,10 @@ export default class ListContentbycategory {
   selectedContent(item: any) {
     this.dataSelected = item;
   }
-
-  @action 
-  fetchCategory(item:any){
-      this.selectCategory =item;
+  @action
+  contentbycategory(item:any){
+  this.selectCategory=item;
   }
+
+
 }

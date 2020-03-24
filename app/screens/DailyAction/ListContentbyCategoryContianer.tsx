@@ -1,57 +1,77 @@
+
 import * as React from "react";
-import { View, StyleSheet,Share, Text, Platform, StatusBar } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  Platform,
+  StatusBar,
+  Alert,
+  Share
+} from "react-native";
 
 import { inject, observer } from "mobx-react";
+
+import ListContentbyCategoryScreenAndroid from "./ListContentbyCategoryScreenAndroid";
 import ListContentbyCategoryScreen from "./ListContentbyCategoryScreen";
 interface Props {
   navigation: any;
-  contentbycategory: any;
+  content: any;
   youtube: any;
   speech: any;
-  content:any
-  onBack: any;
-  onShare:any;
-  
+  contentbycategory:any;
+
 }
 
 interface State {
   DuringMomentum: boolean;
   youtubeId: string;
   videoTitle: string;
-  selectedDetail:any;
+  selectedItem: any;
+  key:string;
+  playVideo: boolean;
+
 }
-@inject("contentbycategory", "youtube", "speech",'content')
+@inject( "youtube", "content","speech","contentbycategory")
 @observer
-export default class HomeContainer extends React.Component<Props, State> {
+export default class ListContentbyCategoryContianer extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
       DuringMomentum: false,
       youtubeId: "",
       videoTitle: "",
-      selectedDetail:"",
+      playVideo: false,
+      selectedItem:null,
+      key:'',
     };
   }
   async componentDidMount() {
     StatusBar.setBarStyle("light-content");
-    await this.props.contentbycategory.fetchContent();
+    const { dataSelected } = await this.props.content;
+    await this.props.content.fetchContent();
     this.props.youtube.fetchYoutube();
     this.props.speech.fetchSpeech();
+    this.props.content.fetchLink()
+    const { youtubeDoc } = this.props.youtube;
+
   }
   _onPlayVideo = (youtubeId: any, videoTitle: string) => {
+    this.setState({ playVideo: true });
     this.setState({ youtubeId: youtubeId, videoTitle: videoTitle });
-    this.props.navigation.navigate("Youtube", { youtubeId, videoTitle });
   };
-  _onDrawer = () => {
-    this.props.navigation.openDrawer();
-  };
-  _onClickNews = (item: any) => {
-    this.props.content.selectedContent(item);
-    this.props.navigation.navigate("Detail");
-    
+  _onPlayAndroid = (VideoID: any) => {
+    this.props.youtube.SelectVideo(VideoID);
+    this.props.navigation.navigate("YoutubePlay");
   };
   _onGoBack = () => {
     this.props.navigation.goBack();
+  };
+  _onClickNews = (item: any) => {
+    this.props.content.selectedContent(item);
+
+    this.props.navigation.navigate("Detail");
+    
   };
   _onEnd = () => {
     Platform.OS == "ios"
@@ -65,17 +85,16 @@ export default class HomeContainer extends React.Component<Props, State> {
 
   _onRefresh = () => {
     this.setState({ DuringMomentum: false }, () => {
-      this.props.contentbycategory.fetchContent();
+      this.props.contentbycategory.fetchCategory();
     });
   };
-  
 
-
-  _onShare = async () => {
-    // const { selectedDetail } = this.props.content
+    _onShare = async (key:string) => {
+    
+      const shareLink = this.props.content.link
     try {
       const result = await Share.share({
-        message: `https://bakseynews.com/article/`
+        message: `${shareLink[0].link}/${key}`
 
       });
 
@@ -91,42 +110,75 @@ export default class HomeContainer extends React.Component<Props, State> {
       console.log("object", error);
     }
   };
-
   public render() {
     const {
-      contentDoc,
+      selectCategory,
+      categoryTitle,
       loadingMore,
       loadingContent,
-      selectCategory,
-      loadingRefreshContent
+      loadingRefreshContent,
+      contentDoc
     } = this.props.contentbycategory;
     const { youtubeDoc } = this.props.youtube;
     const { speechData } = this.props.speech;
-    return (
-      <ListContentbyCategoryScreen
-        speechData={speechData}
-        youtubeDoc={youtubeDoc}
-        contentDoc={contentDoc}
-        selectCategory={selectCategory}
-        onBack={this._onGoBack}
-        onClickDrawer={this._onDrawer}
-        onClickNews={this._onClickNews}
-        DuringMomentum={(value: any) =>
-          this.setState({ DuringMomentum: value })
-        }
-        
-        onEndReach={this._onEnd}
-        onRefresh={this._onRefresh}
-        loadingMore={loadingMore}
-        loading={loadingContent}
-        youtubeId={this.state.youtubeId}
-        onPlayVideo={this._onPlayVideo}
-        videoTitle={this.state.videoTitle}
-        onShare={this._onShare}
+
 
     
 
-      />
-    );
+    if (Platform.OS === "android") { 
+      return (
+        <ListContentbyCategoryScreenAndroid
+          onShare={this._onShare}
+          categoryTitle={categoryTitle}
+          speechData={speechData}
+          youtubeDoc={youtubeDoc}
+          contentDoc={contentDoc}
+          selectCategory={selectCategory}
+          onBack={this._onGoBack}
+          onClickNews={this._onClickNews}
+          DuringMomentum={(value: any) =>
+            this.setState({ DuringMomentum: value })
+          }
+          // refresh={loadingRefreshContent}
+          onEndReach={this._onEnd}
+          onRefresh={this._onRefresh}
+          loadingMore={loadingMore}
+
+          loading={loadingContent}
+          youtubeId={this.state.youtubeId}
+          onPlayAndroid={this._onPlayAndroid}
+          videoTitle={this.state.videoTitle}
+          playVideo={this.state.playVideo}
+
+        />
+      );
+    } else {
+      return (
+        <ListContentbyCategoryScreen
+        contentDoc={contentDoc}
+          onShare={this._onShare}
+          speechData={speechData}
+          categoryTitle={categoryTitle}
+          youtubeDoc={youtubeDoc}
+          onBack={this._onGoBack}         
+          onClickNews={this._onClickNews}
+          DuringMomentum={(value: any) =>
+            this.setState({ DuringMomentum: value })
+          }
+          // refresh={loadingRefreshContent}
+          onEndReach={this._onEnd}
+          onRefresh={this._onRefresh}
+          loadingMore={loadingMore}
+          loading={loadingContent}
+          youtubeId={this.state.youtubeId}
+          onPlayVideo={this._onPlayVideo}
+          videoTitle={this.state.videoTitle}
+          playVideo={this.state.playVideo}
+        />
+      );
+    }
   }
+
 }
+
+

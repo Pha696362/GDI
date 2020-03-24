@@ -7,8 +7,9 @@ import FastImage from "react-native-fast-image";
 
 import More from 'react-native-vector-icons/MaterialIcons';
 import Share from 'react-native-vector-icons/Feather'
-import { Battambang, BattambangBold } from "../../../function/customFont";
 import Icons from 'react-native-vector-icons/Ionicons'
+import { Battambang, BattambangBold } from "../../../function/customFont";
+
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
@@ -27,18 +28,18 @@ interface Props {
 
 }
 
-interface State { }
 export default ({onBack, dataSelected, saveData,onShare }: Props) => {
-  const [visable, setVisable] = useState(false);
+
 
   return (
+    
     <View style={styles.container}>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle='light-content'/>
       <SafeAreaView />
       <View style={styles.headerDetail}>
         <TouchableOpacity style={{flexDirection:'row', alignItems:'center'}} onPress={onBack}>
           <Icons style={styles.arrow} name='ios-arrow-back' />
-          <Text style={{fontSize:14,...BattambangBold,color:'white'}}>{dataSelected.category.name}</Text>
+          <Text style={{fontSize:16,...BattambangBold,color:'white'}}>{dataSelected.category.name}</Text>
         </TouchableOpacity>
        
         <View style={styles.TouchableOpacity}>
@@ -75,9 +76,9 @@ export default ({onBack, dataSelected, saveData,onShare }: Props) => {
           <DetailWebView html={dataSelected.editname} />
         </View>
 
-        <View style={styles.centerMode}>
+        {/* <View style={styles.centerMode}>
             <Text style={styles.TextDate}>© រក្សាសិទ្ធគ្រប់យ៉ាង.</Text>
-          </View>
+          </View> */}
       </ScrollView>
 
 
@@ -147,7 +148,7 @@ const styles = StyleSheet.create({
 
   },
   Share: {
-    fontSize: 20,
+    fontSize:modules.FONT_H3,
     padding: 6,
     color:'white'
 

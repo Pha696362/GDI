@@ -1,3 +1,5 @@
+
+
 import * as React from "react";
 import {
   View,
@@ -7,7 +9,6 @@ import {
   TouchableOpacity,
   ActivityIndicator
 } from "react-native";
-import YouTube from "react-native-youtube";
 import FastImage from "react-native-fast-image";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import modules from "../../modules";
@@ -15,58 +16,45 @@ import modules from "../../modules";
 interface Props {
   uri: any;
   title: any;
-  youtubeId: any;
+  Play: any;
+  loading?:boolean;
 }
 interface State {}
 
-export default ({ uri, title, youtubeId }: Props) => {
-  const [PlayVideo, setPlayVideo] = React.useState();
+export default ({loading, uri, title, Play }: Props) => {
   const [Progress, setProgress] = React.useState();
   return (
     <View style={styles.group}>
-      <View>
         <View style={styles.play}>
           <TouchableOpacity
             style={styles.cover}
-            onPress={() => {
-              setPlayVideo(youtubeId), setProgress(youtubeId);
-            }}
+            onPress={Play}
           >
             <FastImage style={styles.img} source={{ uri: uri }}>
-              {Progress === "KVZ-P-ZI6W4" ? (
-                <ActivityIndicator size="small" />
+              {loading ? (
+                <ActivityIndicator size="large" color={modules.WHITE}/>
               ) : (
                 <Icon style={styles.icon} name="youtube" />
               )}
             </FastImage>
           </TouchableOpacity>
+          <Text numberOfLines={1} style={styles.title}>{title}</Text>
         </View>
-      </View>
-      <View style={styles.video}>
-        <YouTube
-          onChangeFullscreen={() => setProgress(null)}
-        //   fullscreen={true}
-        controls={2}
-          play={true}
-          videoId={PlayVideo}
-          style={{ alignSelf: "stretch", height: 120 }}
-        />
-      </View>
-      <Text numberOfLines={1} style={styles.title}>{title}</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   group: {
-    backgroundColor: modules.WHITE
+    backgroundColor: modules.WHITE,
+    paddingHorizontal:modules.SPACE/2
   },
   play: {
     width: modules.VIEW_PORT_WIDTH,
     height: modules.VIEW_PORT_HEIGHT / 3.5,
     overflow: "hidden",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   img: {
     height: "100%",
@@ -92,6 +80,6 @@ const styles = StyleSheet.create({
     zIndex:0,
     top:10,
     paddingRight:12,
-    backgroundColor:'rgba(230, 125, 34,0.8)'
+    backgroundColor:'rgba(0,0, 0,0.3)'
   }
 });

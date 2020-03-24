@@ -41,15 +41,18 @@ export default ({ openDrawer }: Props) => {
 const styles = StyleSheet.create({
   header: {
     flexDirection:'row',
-    paddingHorizontal: modules.BODY_HORIZONTAL_12,
+    // paddingHorizontal: modules.BODY_HORIZONTAL_12,
+
     backgroundColor: modules.COLOR_MAIN,
     paddingVertical: modules.SPACE5,
     justifyContent:'space-between',
     alignItems:'center'
   },
   Icon: {
-    fontSize: modules.FONT_H4,
-    color: modules.WHITE
+    fontSize: modules.FONT_H2,
+    color: modules.WHITE,
+    // paddingHorizontal:modules.BODY_HORIZONTAL_12
+    marginHorizontal:12
   },
   container: {
     flexDirection: "row",
@@ -62,7 +65,7 @@ const styles = StyleSheet.create({
     height:50
   },
    Logo: {
-    paddingHorizontal: modules.BODY_HORIZONTAL,
+   marginHorizontal:12,
     width: 40,
     height:40
   }

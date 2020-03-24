@@ -16,19 +16,18 @@ export default ({ IconName, category,onClickDrawer }: Props) => {
   return (
     <TouchableOpacity
     onPress={onClickDrawer}
-      style={{ marginTop: modules.PADDING, paddingHorizontal: modules.PADDING }}
+      style={styles.Row}
     >
-      <View style={styles.Row}>
-        <Icon style={styles.Icon} name={IconName} />
+     <Icon style={styles.Icon} name={IconName} />
         <Text style={styles.textDrawer}>{category}</Text>
-      </View>
+     
     </TouchableOpacity>
   );
 }; 
 
 const styles = StyleSheet.create({
   textDrawer: {
-    fontSize: modules.FONT_H6,
+    fontSize: modules.FONT_H4,
     paddingLeft:modules.PADDING,
     color:'#000',
     ...BattambangBold,
@@ -37,14 +36,17 @@ const styles = StyleSheet.create({
   Row: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: modules.BIG_SPACE,
-    borderBottomWidth:0.3,
-    borderColor:modules.SUB_TEXT
+    borderBottomWidth:1,
+    borderColor:'#ddd',
+    padding: modules.PADDING 
+    
   },
   Icon: {
-    fontSize: modules.FONT_H4,
+    fontSize: modules.FONT_H2,
     paddingRight:modules.PADDING,
     paddingBottom:modules.SPACE5,
-    color:"#000"
+    color:modules.SUB_TEXT,
+    
+
   }
 });

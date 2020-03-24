@@ -4,7 +4,7 @@ import modules from "../../modules";
 import { inject, observer } from "mobx-react";
 import FastImage from "react-native-fast-image";
 import { NavigationStackScreenProps } from "react-navigation-stack";
-
+// import SplashScreen from 'react-native-splash-screen'
 interface Props extends NavigationStackScreenProps {
   messaging: any;
 }
@@ -17,12 +17,13 @@ export default class WelcomrScreen extends React.Component<Props, State> {
     this.state = {};
   }
   async componentDidMount() {
+  //  await SplashScreen.hide();
     await this.props.messaging.setUserToken();
     await this.props.messaging.checkPermission();
     await this.props.messaging.initialNotification();
     setTimeout(() => {
       this.props.navigation.navigate("AppTab");
-    }, 500);
+    }, 0);
   }
   public render() {
     return (
@@ -37,7 +38,7 @@ export default class WelcomrScreen extends React.Component<Props, State> {
       >
         <FastImage
           source={require("../../images/logo.png")}
-          style={{ width: modules.VIEW_PORT_WIDTH / 2, height: 200 }}
+          style={{ width: modules.VIEW_PORT_WIDTH / 2, height:modules.VIEW_PORT_WIDTH / 2 }}
         />
         {/* <FastImage
           source={require("../../images/logo.png")}

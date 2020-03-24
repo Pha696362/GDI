@@ -14,14 +14,14 @@ import { BattambangBold } from "../../../function/customFont";
 import FastImage from "react-native-fast-image";
 
 interface Props {
-  onGoBack: any;
+  onBack: any;
   HeaderTitle?: any;
 }
 
-export default ({ onGoBack,HeaderTitle }: Props) => {
+export default ({ onBack,HeaderTitle }: Props) => {
   return (
     <View style={styles.row}>
-      <TouchableOpacity onPress={onGoBack}>
+      <TouchableOpacity onPress={onBack}>
         <Icon style={styles.fontSize} name="arrow-left" />
       </TouchableOpacity>
       <Text style={styles.HeaderTitle}>

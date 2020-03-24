@@ -1,5 +1,5 @@
 import { observable, action } from "mobx";
-import { ContentRef } from "../services/data.service";
+import { ContentRef, linkRef } from "../services/data.service";
 import { pushToArray } from "../services/mapping.service";
 import AppConfig from "../dummy/AppConfig";
 
@@ -12,6 +12,7 @@ export default class CONTENT {
   @observable dataSelected: any = null;
   @observable dataAward: any = null;
   @observable contentLastVisible: any = null;
+  @observable link: any = null;
   @action
   fetchContent() {
     this.loadingContent = true;
@@ -81,15 +82,17 @@ export default class CONTENT {
     this.dataSelected = item;
   }
 
-  // @action
-  // fetchContentAward() {
-  //   ContentRef()
-  //     .where("category.key", "==", "aMQIGTiawJvTUZsdq6Ao")
-  //     .orderBy("page_key", "desc")
-  //     .onSnapshot((item: any) => {
-  //       const docs = pushToArray(item);
-  //       this.dataAward = docs;
-  //       this.loading = false;
-  //     });
-  // }
+  @action
+  async fetchLink(){
+    this.loading=true;
+    const item:any = await linkRef().get();
+    this.link = pushToArray(item);
+    // console.log('this.link', this.link)
+    this.loading=false;
+  }
+
+
+
+
+
 }

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Provider } from 'mobx-react';
 import { ActivityIndicator, StatusBar, YellowBox } from 'react-native';
+import SplashScreen from 'react-native-splash-screen'
+
 import App from '../app/routes';
 
 export interface Props {}
@@ -19,8 +21,10 @@ export default function(stores: any) {
 		}
 
 		componentDidMount() {
+			
 			this.setState({ ready: true });
-			StatusBar.setBarStyle('dark-content');
+			StatusBar.setBarStyle('light-content');
+			SplashScreen.hide();
 		}
 
 		render() {

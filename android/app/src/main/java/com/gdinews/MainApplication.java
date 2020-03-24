@@ -1,4 +1,4 @@
-package com.gdi;
+package com.gdinews;
 
 import android.app.Application;
 import android.content.Context;
@@ -7,6 +7,7 @@ import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import io.invertase.firebase.auth.RNFirebaseAuthPackage;
@@ -14,7 +15,7 @@ import io.invertase.firebase.firestore.RNFirebaseFirestorePackage;
 import io.invertase.firebase.functions.RNFirebaseFunctionsPackage;
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
-
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =
@@ -35,6 +36,7 @@ public class MainApplication extends Application implements ReactApplication {
             packages.add(new RNFirebaseFunctionsPackage());
             packages.add(new RNFirebaseMessagingPackage());
             packages.add(new RNFirebaseNotificationsPackage());
+            new SplashScreenReactPackage();
             return packages;
         }
 

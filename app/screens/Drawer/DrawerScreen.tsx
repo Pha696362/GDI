@@ -44,9 +44,9 @@ export default ({onClick}: Props) => {
             })}
            
         </View>
-        <View style={{alignItems:"center", justifyContent:"center", marginTop:70}}>
+        {/* <View style={{alignItems:"center", justifyContent:"center", marginTop:150}}>
         <Text style={styles.text}>ឆ្នាំ២០២០ © រក្សាសិទ្ធិគ្រប់យ៉ាង </Text>
-        </View>
+        </View> */}
         
     </View>
   );
@@ -54,7 +54,7 @@ export default ({onClick}: Props) => {
 const styles = StyleSheet.create({
   DrawerContainer: {
     backgroundColor: modules.COLOR_MAIN,
-     paddingVertical:modules.PADDING,
+    paddingVertical:modules.PADDING/50,
     alignItems: "center",
     justifyContent: "center"
   },

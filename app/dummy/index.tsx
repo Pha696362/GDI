@@ -29,35 +29,22 @@ export const drawerNavigationList = [
     name: "ច្បាប់",
     route: "DailyAction"
   },
-  {
-    key: 'xKuipNkyTtXHzHINF8zS',
-    icon: "question",
-    name: "អំពីយើង",
-    route: "Award"
-  },
-  {
-    key: 'ZnFg1nqDrvvf7iN8fnl2',
+  // {
+  //   key: 'xKuipNkyTtXHzHINF8zS',
+  //   icon: "question",
+  //   name: "អំពីយើង",
+  //   route: "Award"
+  // },
+   {
+    key:'2',
     icon: "phone",
     name: "ទំនាក់ទំនង",
     route: "Contact"
+  }, {
+    key:'3',
+    icon: "settings",
+    name: "កំណត់សារដំណឹង",
+    route: "Contact"
   },
   
-];
-export const DNews = [
-  {
-    key: "1",
-    title:
-      "សម្ដេចក្រឡាហោម ស ខេង ឧបនាយករដ្ឋមន្ត្រី រដ្ឋមន្ត្រីក្រសួងមហាផ្ទៃបានអនុញ្ញាតជូនឯកឧត្តម Thongchanh Manixay អនុរដ្ឋមន្ត្រីក្រសួងផ្ទៃក្នុង",
-    subTitle: "ការកំណត់",
-    imgUrl: require("../images/5.jpg"),
-    date: "ថ្ងៃទី ២១ ខែ វិច្ឆិកា ឆ្នាំ ២០១៩"
-  },
-  {
-    key: "1",
-    title:
-      "សម្ដេចក្រឡាហោម ស ខេង ឧបនាយករដ្ឋមន្ត្រី រដ្ឋមន្ត្រីក្រសួងមហាផ្ទៃបានអនុញ្ញាតជូនឯកឧត្តម Thongchanh Manixay អនុរដ្ឋមន្ត្រីក្រសួងផ្ទៃក្នុង",
-    subTitle: "ការកំណត់",
-    imgUrl: require("../images/5.jpg"),
-    date: "ថ្ងៃទី ២១ ខែ វិច្ឆិកា ឆ្នាំ ២០១៩"
-  }
-];
+   ];

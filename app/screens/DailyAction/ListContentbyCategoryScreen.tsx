@@ -1,4 +1,5 @@
-import * as React from "react";
+
+import React, { useState } from "react";
 import {
   View,
   StyleSheet,
@@ -14,12 +15,10 @@ import HeaderMain from "../components/HeaderMain";
 import modules from "../../modules";
 import TextSlider from "../components/TextSlider";
 import CardNews from "../components/CardNews";
-import { BattambangBold, Battambang } from "../../../function/customFont";
-import VideoCardHome from "../components/VideoCardHome";
-import { removeTag } from "../../services/mapping.service";
-import CardVideoScroll from "../components/CardVideoScroll";
-import HeaderContainer from "../components/HeaderContainer";
 
+import CardVideoScroll from "../components/CardVideoScroll";
+import { Battambang } from "../../../function/customFont";
+import HeaderContainer from "../components/HeaderContainer";
 interface Props {
   onClickDrawer: () => void;
   onClickNews: any;
@@ -30,17 +29,18 @@ interface Props {
   DuringMomentum: (value: boolean) => void;
   onEndReach: () => void;
   youtubeDoc: any;
-  onPlayVideo: any;
-  videoTitle: string;
   youtubeId: string;
+  onPlayAndroid: any;
+  videoTitle: string;
   speechData: any;
-  onBack: any;
-  selectCategory:any;
-  onShare:any
- 
+  playVideo: boolean;
+  onShare:any;
+  selectCategory?:any;
+  onBack:any;
+  categoryTitle:string;
 }
 export default ({
-  onClickDrawer,
+
   onClickNews,
   contentDoc,
   loading,
@@ -49,31 +49,38 @@ export default ({
   onEndReach,
   loadingMore,
   youtubeDoc,
-  onPlayVideo,
-  speechData,
-  onBack,
-  selectCategory,
+  youtubeId,
   onShare,
-  
+  onPlayAndroid,
+  videoTitle,
+  speechData,
+  playVideo,
+  selectCategory,
+  onBack,
+  categoryTitle,
+
 }: Props) => {
-  // const Category = contentDoc[0]
-  // console.log("Category",Category)
+  const [buffer, setBuffer] = useState(false);
+  const changeState = (state: any) => {
+    if (state == "buffering") {
+      setBuffer(true);
+    } else {
+      setBuffer(false);
+    }
+  };
+
+  
   return (
     <View style={styles.Container}>
       <SafeAreaView style={{backgroundColor:modules.COLOR_MAIN}}/>
-      <HeaderContainer onGoBack={onBack} HeaderTitle={selectCategory}/>
-      
-      <View>
-      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-    
-    </ScrollView>
-      </View>
+      <HeaderContainer onBack={onBack} HeaderTitle={categoryTitle}/>
+
       <View style={{ flex: 1 }}>
-        <TextSlider speechData={speechData} />
-        {loading ? (
+      {loading ? (
           <ActivityIndicator size="large" />
         ) : (
           <FlatList
+
             showsVerticalScrollIndicator={false}
             data={contentDoc}
             refreshing={loading}
@@ -86,26 +93,18 @@ export default ({
             onMomentumScrollEnd={() => {
               DuringMomentum(true);
             }}
-            ListFooterComponent={
-              loadingMore ? (
-                <ActivityIndicator
-                  style={{ paddingVertical: modules.BODY_HORIZONTAL }}
-                  size="large"
-                />
-              ) : (
-                <View style={{ paddingVertical: modules.BODY_HORIZONTAL }} />
-              )
-            }
+           
             keyExtractor={(i, index) => index.toString()}
-            renderItem={({ item, index }) => (
+            renderItem={({ item }: any) => (
               <CardNews
-                key={index}
+                loading={buffer}
+                key={item.key}
                 onClickNews={() => onClickNews(item)}
                 imgUrl={item.fileurl}
                 title={item.name}
-                date={item.create_date.seconds}
                 editname={item.editname}
-                onShare={()=>onShare(item)}
+                date={item.create_date.seconds}
+                onShare={()=>onShare(item.key)}
               />
             )}
           />
@@ -114,6 +113,11 @@ export default ({
     </View>
   );
 };
+
+const renderFooter = (loadingMore: boolean) => {
+  if (loadingMore) return <ActivityIndicator color={'black'} size={'large'} />
+  return <View style={{ height: 80 }} />
+}
 
 const styles = StyleSheet.create({
   Container: {

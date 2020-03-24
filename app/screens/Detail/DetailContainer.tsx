@@ -9,6 +9,7 @@ export interface Props {
 }
 
 export interface State {
+  key: string,
   selectedItem:any
 }
 
@@ -18,20 +19,26 @@ export default class DetailContainer extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
+      key: '',
       selectedItem: null,
     };
   }
-  componentDidMount() {
+ async componentDidMount() {
     StatusBar.setBarStyle("light-content");
+    const { dataSelected } = await this.props.content;
+    this.props.content.fetchLink()
+
   }
   _onGoBack = () => {
     this.props.navigation.goBack();
   };
   _onShare = async () => {
-    const { selectedDetail } = this.props.content
+    const { dataSelected } = this.props.content
+    const shareLink = this.props.content.link
+
     try {
       const result = await Share.share({
-        message: `https://bakseynews.com/article/`
+        message: `${shareLink[0].link}/${dataSelected.key}`
 
       });
 
@@ -48,7 +55,8 @@ export default class DetailContainer extends React.Component<Props, State> {
     }
   };
    render() {
-    const { dataSelected,} = this.props.content;
+    const { dataSelected } = this.props.content
+
     return  <DetailScreen 
     dataSelected={dataSelected}
      onBack={this._onGoBack} 

@@ -7,10 +7,17 @@ export function categoryRef() {
   return db.collection("category");
 }
 export function speechRef() {
-  return db.collection("speech");
+  return db.collection("content");
 }
 export function bioRef(){
-  return db.collection('bio')
+  return db.collection('bio');
+}
+export function contactRef(){
+  return db.collection('contact');
+}
+
+export function linkRef(){
+  return db.collection('setting');
 }
 
 export function ContentRef(lastVisible?: any, categoryKey?: string) {

@@ -60,8 +60,8 @@ export default class MessagingStore {
     firebase.messaging().subscribeToTopic("gdi");
     this.messageListener = firebase.messaging().onMessage(message => {
       const { data } = message;
-      console.log("data", data);
-      // console.log('title,body', message);
+
+
       this.showNotification(data);
     });
   }

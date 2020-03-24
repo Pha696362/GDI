@@ -1,9 +1,11 @@
+
 import * as React from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import modules from "../../modules";
-import { Battambang } from "../../../function/customFont";
+
 import FastImage from "react-native-fast-image";
 import { ScrollView } from "react-native-gesture-handler";
+import { Battambang } from "../../../function/customFont";
 
 export interface Props {
   uri: string;
@@ -22,7 +24,7 @@ export default ({ uri, onPlay, VideoTitle }: Props) => {
           <Text numberOfLines={2} style={styles.text}>
             {VideoTitle}
           </Text>
-        </View>t
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -64,3 +66,4 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   }
 });
+
